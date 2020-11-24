@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: jn-security
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: grand
+Implementation-Vendor-Id: com.jdnevesti.security
+Build-Jdk: 1.8.0_261
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/jn-security
+Created-By: Maven Integration for Eclipse
+
