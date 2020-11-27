@@ -1,5 +1,7 @@
 package com.jdnevesti.security.web.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jdnevesti.security.domain.Especialidade;
@@ -39,8 +42,7 @@ public class EspecialidadeController {
 	
 	// Listar especialidades
 	@GetMapping("/datatables/server")
-	public ResponseEntity<?> getEspecialidades(HttpServletRequest request) {
-		
+	public ResponseEntity<?> getEspecialidades(HttpServletRequest request) {		
 		return ResponseEntity.ok(service.buscarEspecialidades(request));
 	}
 	
@@ -57,6 +59,20 @@ public class EspecialidadeController {
 		service.remover(id);
 		attr.addFlashAttribute("sucesso", "Operação realizada com sucesso!");
 		return "redirect:/especialidades";
+	}
+	
+	// buscar por especialidades
+	@GetMapping("/titulo")
+	public ResponseEntity<?> getEespecialidadesPorTermo(@RequestParam("termo") String termo) {	
+		List<String> especialidades = service.buscarEspecialidadeByTermo(termo);
+		return ResponseEntity.ok(especialidades);
+	}
+	
+	// buscar por especialidades
+	@GetMapping("/datatables/server/medico/{id}")
+	public ResponseEntity<?> getEespecialidadesPorMedico(@PathVariable("id") Long id, HttpServletRequest request) {	
+		
+		return ResponseEntity.ok(service.buscarEspecialidadesPorMedico(id, request));
 	}
 	
 }

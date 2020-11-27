@@ -28,13 +28,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers("/webjars/**", "/css/**", "/js/**", "/image/**").permitAll()
 		
 		// Acessos privados Admin
+		.antMatchers("/u/editar/senha", "/u/confirmar/senha").hasAuthority(MEDICO)
 		.antMatchers("/u/**").hasAuthority(ADMIN)
 				
 		// Acessos privados especialidades
-		.antMatchers("/especialidades/**").hasAuthority("ADMIN")
+		.antMatchers("/especialidades/datatables/server/medico/*").hasAnyAuthority(ADMIN, MEDICO)
+		.antMatchers("/especialidades/titulo").hasAnyAuthority(ADMIN, MEDICO)
+		.antMatchers("/especialidades/**").hasAuthority(ADMIN)
 		
 		// Acessos privados médicos
-		.antMatchers("/medicos/dados", "/medicos/salvar", "/medicos/editar").hasAnyAuthority(MEDICO, ADMIN)
+		.antMatchers("/medicos/dados", "/medicos/salvar", "/medicos/editar").hasAnyAuthority(ADMIN, MEDICO)
 		.antMatchers("/medicos/**").hasAuthority(MEDICO)
 		
 		// Acessos privados pacientes
